@@ -8,15 +8,15 @@ import time
 from benthos_release.msg import BenthosReleaseCommand, BenthosReleaseStatus
 from udp_tools_ros import serialUDP
 
-# Some constants
-BENTHOS_RELEASE_COMMAND_CHANNEL = "BENTHOS_RELEASE_COMMAND"
-BENTHOS_RELEASE_STATUS_CHANNEL = "BENTHOS_RELEASE_STATUS"
-BENTHOS_RELEASE_ID_1 = 34
-BENTHOS_RELEASE_ID_2 = 35
-BENTHOS_RELEASE_CODE_1 = 39466
-BENTHOS_RELEASE_CODE_2 = 39467
-SOUND_VELOCITY = 1537.8
-SAMPLE_RATE = 1.0 # 1 Hz
+# Get ROS param constants
+BENTHOS_RELEASE_COMMAND_CHANNEL = rospy.get_param('~command_topic', "BENTHOS_RELEASE_COMMAND")
+BENTHOS_RELEASE_STATUS_CHANNEL = rospy.get_param('~status_topic', "BENTHOS_RELEASE_STATUS")
+BENTHOS_RELEASE_ID_1 = rospy.get_param('~release_id1', 34)
+BENTHOS_RELEASE_ID_2 = rospy.get_param('~release_id2', 35)
+BENTHOS_RELEASE_CODE_1 = rospy.get_param('~release_code1', 39466)
+BENTHOS_RELEASE_CODE_2 = rospy.get_param('~release_code2', 39467)
+SOUND_VELOCITY = rospy.get_param('~sound_velocity', 1537.8)
+SAMPLE_RATE = rospy.get_param('~sample_rate', 1.0) # 1 Hz default
 
 class BenthosReleaseNode:
     def __init__(self):
@@ -35,7 +35,8 @@ class BenthosReleaseNode:
         self.id_ranging_to = BENTHOS_RELEASE_ID_1
         self.auto_range_count = 0
         self.time_since_last = 0
-        self.auto_range_time_delay = 60
+        self.auto_range_time_delay = rospy.get_param('~auto_range_time_delay', 60)
+
 
         # Initialize message instances
         self.status_msg = BenthosReleaseStatus()
