@@ -3,11 +3,11 @@
 <launch>
 
   <!-- Launch the release script -->
-  <node pkg="your_package_name" type="release_script.py" name="benthos_release_node">
+  <node pkg="benthos_release" type="benthos_release_node.py" name="benthos_release_node">
   </node>
 
   <!-- Launch the GUI script -->
-  <node pkg="your_package_name" type="gui_script.py" name="benthos_gui_node">
+  <node pkg="benthos_release" type="benthos_gui.py" name="benthos_gui_node">
   </node>
 
 </launch>
